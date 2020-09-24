@@ -3,4 +3,4 @@ project(ServerCpp)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(ServerCpp main.cpp)
+add_executable(ServerCpp main.cpp floydwarshall.h)
