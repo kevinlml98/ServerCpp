@@ -75,6 +75,7 @@ int main(){
 
         }
 
+
         // Close the socket
         close(clientSocket);
     }
