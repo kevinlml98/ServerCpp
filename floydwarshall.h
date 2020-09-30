@@ -77,44 +77,60 @@ public:
     /**
      * @see shortDistance() Retorna la distancia más corta entre dos nodos, máximo 20 nodos.
      * @param init_node Nodo inicial
-     * @param finish_node Nodo final
+     * @param final_node Nodo final
      */
-    void shortDistance(char init_node, char finish_node){
-         cout<<"La ruta mas corta es: ";
+    int* shortDistance(char init_node, char final_node){
          int columna = cambioNodo(init_node);
-         int fila = cambioNodo(finish_node);
-         cout<<ma[fila][columna]<<endl;
-
-
-         char recorrido[20];
-         recorrido[0] = init_node;
-
-         char fnode = finish_node;
-         char inode = init_node;
-
-         int c, aux, i = 1;
-         bool wbool = true;
-         c = cambioNodo(inode);
-         aux = cambioNodo(fnode);
-
-         while (wbool){
-             if(c != aux){
-                 fnode = mr[aux][c];
-                 aux = cambioNodo(fnode);
-                 recorrido[i] = fnode;
-                 i++;
-             }else{
-                 wbool = false;
-             }
-         }
-
-         for(int f = 0; f < i-1; f++){
-             cout<<recorrido[f]<<" -> ";
-         }
-         cout<<finish_node<<endl;
+         int fila = cambioNodo(final_node);
+         int* ruta = &ma[fila][columna];
+         return ruta;
 
      }
+    /**
+     * @see sendShortDistance() Retorna la distancia más corta entre dos nodos, máximo 20 nodos.
+     * @param init_node Nodo inicial
+     * @param final_node Nodo final
+     */
+    char* sendShortDistance(char init_node, char final_node){
 
+        int columna = cambioNodo(init_node);
+        int fila = cambioNodo(final_node);
+
+
+
+        char recorrido[20];
+        char *buffer;
+        buffer = reinterpret_cast<char *>(&recorrido);
+        recorrido[0] = init_node;
+
+        char fnode = final_node;
+        char inode = init_node;
+
+        int c, aux, i = 1;
+        bool wbool = true;
+        c = cambioNodo(inode);
+        aux = cambioNodo(fnode);
+
+        while (wbool){
+            if(c != aux){
+                fnode = mr[aux][c];
+                aux = cambioNodo(fnode);
+                recorrido[i] = fnode;
+                i++;
+            }else{
+                recorrido[i-1] = final_node;
+                wbool = false;
+            }
+        }
+        return buffer;
+    }
+
+
+
+
+    /**
+    * @see printMR() Imprime la matriz de adyacensia
+    */
      void printMR(){
          for(auto & i : mr){
              for(char j : i){
@@ -124,7 +140,9 @@ public:
          }
 
      }
-
+     /**
+    * @see printMA() Imprime la matriz de adyacensia
+    */
      void printMA(){
         for(auto & i : ma){
             for(int j : i){
